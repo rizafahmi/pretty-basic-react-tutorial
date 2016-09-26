@@ -46,6 +46,9 @@ Player.PropTypes = {
 }
 
 var Counter = React.createClass({
+  propTypes: {
+    score: React.PropTypes.number.isRequired
+  },
   render() {
 
     return (
@@ -59,9 +62,6 @@ var Counter = React.createClass({
   }
 })
 
-Counter.PropTypes = {
-  score: React.PropTypes.number.isRequired
-}
 
 function Application(props) {
   return (
