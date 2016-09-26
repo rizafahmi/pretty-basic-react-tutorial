@@ -1,3 +1,21 @@
+var PLAYERS =[
+  {
+    name: "Riza Fahmi",
+    score: 22,
+    id: 1
+  },
+  {
+    name: "Naufal Hisyam",
+    score: 25,
+    id: 2
+  },
+  {
+    name: "Haaris Ramadhan",
+    score: 15,
+    id: 3
+  }
+]
+
 function Header(props) {
   return (
     <div className="header">
@@ -27,16 +45,19 @@ Player.PropTypes = {
   score: React.PropTypes.number.isRequired
 }
 
-function Counter(props) {
-  return (
-    <div className="counter">
-      <button className="counter-action decrement"> - </button>
-      <div className="counter-score">{props.score}</div>
-      <button className="counter-action increment"> + </button>
-    </div>
+var Counter = React.createClass({
+  render() {
 
-  )
-}
+    return (
+      <div className="counter">
+        <button className="counter-action decrement"> - </button>
+        <div className="counter-score">{this.props.score}</div>
+        <button className="counter-action increment"> + </button>
+      </div>
+
+    )
+  }
+})
 
 Counter.PropTypes = {
   score: React.PropTypes.number.isRequired
@@ -48,8 +69,9 @@ function Application(props) {
       <Header title={props.title} />
       <div className="players">
 
-        <Player name="Riza Fahmi" score={35} />
-        <Player name="Haaris Ramadhan" score={55} />
+      {props.players.map((player) => {
+        return <Player name={player.name} score={player.score} key={player.id} />
+      })}
 
       </div>
     </div>
@@ -57,7 +79,12 @@ function Application(props) {
 }
 
 Application.propTypes = {
-  title: React.PropTypes.string
+  title: React.PropTypes.string,
+  players: React.PropTypes.arrayOf(React.PropTypes.shape({
+    name: React.PropTypes.string.isRequeired,
+    score: React.PropTypes.number.isRequired,
+    id: React.PropTypes.number.isRequired
+  })).isRequired
 }
 
 Application.defaultProps = {
@@ -65,6 +92,6 @@ Application.defaultProps = {
 }
 
 ReactDOM.render(
-  <Application title="My Scoreboard"/>, document.getElementById('container')
+  <Application title="My Scoreboard" players={PLAYERS}/>, document.getElementById('container')
 )
 
