@@ -1,37 +1,55 @@
+function Header(props) {
+  return (
+    <div className="header">
+      <h1>{ props.title }</h1>
+    </div>
+  )
+}
+Header.porpType = {
+  title: React.PropTypes.string
+}
+
+function Player(props) {
+  return (
+    <div className="player">
+      <div className="player-name">
+        {props.name}
+      </div>
+      <div className="player-score">
+        <Counter score={props.score} />
+      </div>
+    </div>
+  )
+}
+
+Player.PropTypes = {
+  name: React.PropTypes.string.isRequeired,
+  score: React.PropTypes.number.isRequired
+}
+
+function Counter(props) {
+  return (
+    <div className="counter">
+      <button className="counter-action decrement"> - </button>
+      <div className="counter-score">{props.score}</div>
+      <button className="counter-action increment"> + </button>
+    </div>
+
+  )
+}
+
+Counter.PropTypes = {
+  score: React.PropTypes.number.isRequired
+}
+
 function Application(props) {
   return (
     <div className="scoreboard">
-      <div className="header">
-        <h1>{ props.title }</h1>
-      </div>
-
+      <Header title={props.title} />
       <div className="players">
-        <div className="player">
-          <div className="player-name">
-            Jim Hoskins
-          </div>
-          <div className="player-score">
-            <div className="counter">
-              <button className="counter-action decrement"> - </button>
-              <div className="counter-score"> 31 </div>
-              <button className="counter-action increment"> + </button>
-            </div>
-          </div>
-        </div>
 
-
-        <div className="player">
-          <div className="player-name">
-            Andrew Hopkins
-          </div>
-          <div className="player-score">
-            <div className="counter">
-              <button className="counter-action decrement"> - </button>
-              <div className="counter-score">65</div>
-              <button className="counter-action increment"> + </button>
-            </div>
-          </div>
-        </div>
+        <Player name="Riza Fahmi" score={35} />
+        <Player name="Haaris Ramadhan" score={55} />
 
       </div>
     </div>
