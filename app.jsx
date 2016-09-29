@@ -204,17 +204,42 @@ var AddPlayerForm = React.createClass({
 var Stopwatch = React.createClass({
   getInitialState() {
     return {
-      running: false
+      running: false,
+      previousTime: 0,
+      elapsedTime: 0
     }
   },
   onStop() {
-    this.setState({running: false})
+    this.setState({
+      running: false,
+    })
   },
   onStart() {
-    this.setState({running: true})
+    this.setState({
+      running: true,
+      previousTime: Date.now()
+    })
   },
   onReset() {
-
+    this.setState({
+     elapsedTime: 0,
+     previousTime: Date.now()
+    })
+  },
+  componentDidMount() {
+    this.interval = setInterval(this.onTick, 100)
+  },
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  },
+  onTick() {
+    if (this.state.running) {
+      var now = Date.now()
+      this.setState({
+        previousTime: now,
+        elapsedTime: this.state.elapsedTime + (now - this.state.previousTime)
+      })
+    }
   },
   render() {
     var startStop
@@ -223,10 +248,12 @@ var Stopwatch = React.createClass({
     } else {
       startStop = <button onClick={this.onStart}>Start</button>
     }
+
+    var seconds = Math.floor(this.state.elapsedTime / 1000)
     return (
       <div className="stopwatch">
         <h2>Stopwatch</h2>
-        <div className="stopwatch-time">8</div>
+        <div className="stopwatch-time">{seconds}</div>
         { startStop }
         <button onClick={this.onReset}>Reset</button>
       </div>
