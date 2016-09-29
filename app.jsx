@@ -202,13 +202,33 @@ var AddPlayerForm = React.createClass({
 })
 
 var Stopwatch = React.createClass({
+  getInitialState() {
+    return {
+      running: false
+    }
+  },
+  onStop() {
+    this.setState({running: false})
+  },
+  onStart() {
+    this.setState({running: true})
+  },
+  onReset() {
+
+  },
   render() {
+    var startStop
+    if (this.state.running) {
+      startStop = <button onClick={this.onStop}>Stop</button>
+    } else {
+      startStop = <button onClick={this.onStart}>Start</button>
+    }
     return (
       <div className="stopwatch">
         <h2>Stopwatch</h2>
         <div className="stopwatch-time">8</div>
-        <button>Start</button>
-        <button>Reset</button>
+        { startStop }
+        <button onClick={this.onReset}>Reset</button>
       </div>
     )
   }
