@@ -49,6 +49,7 @@ function Header(props) {
     <div className="header">
       <Stats players={props.players}/>
       <h1>{ props.title }</h1>
+      <Stopwatch />
     </div>
   )
 }
@@ -200,6 +201,18 @@ var AddPlayerForm = React.createClass({
   }
 })
 
+var Stopwatch = React.createClass({
+  render() {
+    return (
+      <div className="stopwatch">
+        <h2>Stopwatch</h2>
+        <div className="stopwatch-time">8</div>
+        <button>Start</button>
+        <button>Reset</button>
+      </div>
+    )
+  }
+})
 
 ReactDOM.render(
   <Application title="My Scoreboard" initialPlayers={PLAYERS}/>, document.getElementById('container')
